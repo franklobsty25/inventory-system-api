@@ -1,0 +1,39 @@
+{
+  "definition": {
+    "failOnErrors": true,
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Inventory Management System",
+      "version": "1.0.0",
+      "description": "Inventory management systems encompass various fields and functionalities to effectively handle and control the flow of goods and materials within an organization",
+      "contact": {
+        "name": "Colonkoed Enterprise",
+        "url": "https://colonkoded.com/",
+        "email": "info@colonkoded.com"
+      }
+    },
+    "servers": [
+      {
+        "url": "http://localhost:8000/api/v1",
+        "description": "Local Server"
+      }
+    ]
+  },
+  "basePath": "/",
+  "securityDefinitions": {
+    "Authorization": {
+      "type": "http",
+      "name": "authorization",
+      "in": "header",
+      "description": "Authorization token",
+      "scheme": "bearer",
+      "bearerFormat": "JWT"
+    }
+  },
+  "apis": [
+    "./swaggers/*.js",
+    "./swaggers/api/v1/*.js",
+    "./swaggers/*.ts",
+    "./swaggers/api/v1/*.ts"
+  ]
+}
