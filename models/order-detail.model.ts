@@ -1,8 +1,8 @@
-import mongoose, { Document, PaginateModel, SchemaTypes } from 'mongoose';
-import { ORDER, ORDER_DETAIL, PRODUCT } from '../constants/contants';
-import paginate from 'mongoose-paginate-v2';
+import mongoose, { type Document, type PaginateModel, SchemaTypes } from 'mongoose'
+import { ORDER, ORDER_DETAIL, PRODUCT } from '../constants/contants'
+import paginate from 'mongoose-paginate-v2'
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
 const OrderDetailSchema = new Schema(
   {
@@ -11,24 +11,24 @@ const OrderDetailSchema = new Schema(
     unitPrice: { type: Number, required: true },
     isDeleted: { type: Boolean, default: false },
     order: { type: SchemaTypes.ObjectId, required: true, ref: ORDER },
-    product: { type: SchemaTypes.ObjectId, required: true, ref: PRODUCT },
+    product: { type: SchemaTypes.ObjectId, required: true, ref: PRODUCT }
   },
   { timestamps: true }
-);
+)
 
-OrderDetailSchema.plugin(paginate);
+OrderDetailSchema.plugin(paginate)
 
 interface OrderDetailDocument extends Document {
-  description: string;
-  quantity: number;
-  unitPrice: number;
-  order: string;
-  product: string;
+  description: string
+  quantity: number
+  unitPrice: number
+  order: string
+  product: string
 }
 
 const PaginateOrderDetailModel = mongoose.model<
-  OrderDetailDocument,
-  PaginateModel<OrderDetailDocument>
->(ORDER_DETAIL, OrderDetailSchema);
+OrderDetailDocument,
+PaginateModel<OrderDetailDocument>
+>(ORDER_DETAIL, OrderDetailSchema)
 
-export { PaginateOrderDetailModel, OrderDetailDocument };
+export { PaginateOrderDetailModel, type OrderDetailDocument }

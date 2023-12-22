@@ -1,5 +1,5 @@
-import { Request } from 'express';
+import { type Request } from 'express'
 
 export default interface CustomRequest extends Request {
-  user?: { [key: string]: string};
+  user?: Record<string, string>
 }

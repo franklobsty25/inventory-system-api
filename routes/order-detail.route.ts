@@ -1,25 +1,25 @@
-import { Router } from 'express';
-import bodyParser from 'body-parser';
-import { authenticate } from '../utils/auth';
+import { Router } from 'express'
+import bodyParser from 'body-parser'
+import { authenticate } from '../utils/auth'
 import {
   createOrderDetail,
   deleteOrderDetail,
   editOrderDetail,
   getOrderDetail,
-  getOrderDetails,
-} from '../controllers/order-detail.controller';
+  getOrderDetails
+} from '../controllers/order-detail.controller'
 
-const router = Router();
-router.use(bodyParser.json());
+const router = Router()
+router.use(bodyParser.json())
 
-router.get('/list', authenticate, getOrderDetails);
+router.get('/list', authenticate, getOrderDetails)
 
-router.get('/:detail', authenticate, getOrderDetail);
+router.get('/:detail', authenticate, getOrderDetail)
 
-router.post('/:order/create/:product', authenticate, createOrderDetail);
+router.post('/:order/create/:product', authenticate, createOrderDetail)
 
-router.put('/:detail/edit', authenticate, editOrderDetail);
+router.put('/:detail/edit', authenticate, editOrderDetail)
 
-router.delete('/:detail/delete', authenticate, deleteOrderDetail);
+router.delete('/:detail/delete', authenticate, deleteOrderDetail)
 
-export default router;
+export default router

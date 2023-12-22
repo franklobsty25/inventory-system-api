@@ -37,7 +37,7 @@
  *          $ref: '#/components/responses/500Error'
  *
  * #=========================================================================
- * 
+ *
  *  /customer/list:
  *    get:
  *      tags: [Customer]
@@ -68,7 +68,7 @@
  *          $ref: '#/components/responses/500Error'
  *
  * #========================================================================
- * 
+ *
  *  /customer/create:
  *    post:
  *     tags: [Customer]
@@ -98,7 +98,7 @@
  *          $ref: '#/components/responses/400Error'
  *       500:
  *         $ref: '#/components/responses/500Error'
- * 
+ *
  * #=============================================================================
  *
  *  /customer/{customer}/edit:
@@ -132,7 +132,7 @@
  *          $ref: '#/components/responses/CustomerNotFound'
  *        500:
  *          $ref: '#/components/responses/500Error'
- * 
+ *
  * #================================================================================
  *
  *  /customer/{customer}/delete:
@@ -200,7 +200,7 @@
  *        phoneNumber: +233200000000
  *        email: adukodie@gmail.com
  *        address1: GA-078-8769
- * 
+ *
  *
  *   parameters:
  *     PerPage:
@@ -230,7 +230,7 @@
  *       description: Paginating items on a page
  *       schema:
  *         type: boolean
- * 
+ *
  *     CustomerParam:
  *       name: customer
  *       in: path

@@ -234,7 +234,7 @@
  *       description: Specify the supplier id
  *       schema:
  *         type: string
- *  
+ *
  *     ProductParam:
  *       name: product
  *       in: path

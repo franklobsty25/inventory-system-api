@@ -21,14 +21,14 @@ enum OrderStatusEnum {
   COMPLETED = 'completed',
 }
 
-const USER = 'User';
-const CUSTOMER = 'Customer';
-const PRODUCT = 'Product';
-const SUPPLIER = 'Supplier';
-const TRANSACTION = 'Transaction';
-const LOCATION = 'Location';
-const ORDER = 'Order';
-const ORDER_DETAIL = 'OrderDetail';
+const USER = 'User'
+const CUSTOMER = 'Customer'
+const PRODUCT = 'Product'
+const SUPPLIER = 'Supplier'
+const TRANSACTION = 'Transaction'
+const LOCATION = 'Location'
+const ORDER = 'Order'
+const ORDER_DETAIL = 'OrderDetail'
 
 const SWAGGER_DOCS = {
   definition: {
@@ -42,19 +42,19 @@ const SWAGGER_DOCS = {
       contact: {
         name: 'Colonkoed Enterprise',
         url: 'https://colonkoded.com/',
-        email: 'info@colonkoded.com',
-      },
+        email: 'info@colonkoded.com'
+      }
     },
     servers: [
       {
         url: 'http://localhost:8000/api/v1',
-        description: 'Local Server',
+        description: 'Local Server'
       },
       {
         url: 'https://c199-102-176-94-188.ngrok-free.app/api/v1',
         description: 'Ngrok Service'
-      },
-    ],
+      }
+    ]
   },
   basePath: '/',
   securityDefinitions: {
@@ -64,16 +64,16 @@ const SWAGGER_DOCS = {
       in: 'header',
       description: 'Authorization token',
       scheme: 'bearer',
-      bearerFormat: 'JWT',
-    },
+      bearerFormat: 'JWT'
+    }
   },
   apis: [
     './swaggers/*.js',
     './swaggers/api/v1/*.js',
     './swaggers/*.ts',
-    './swaggers/api/v1/*.ts',
-  ],
-};
+    './swaggers/api/v1/*.ts'
+  ]
+}
 
 export {
   TransactionTypeEnum,
@@ -88,5 +88,5 @@ export {
   LOCATION,
   ORDER,
   ORDER_DETAIL,
-  SWAGGER_DOCS,
-};
+  SWAGGER_DOCS
+}

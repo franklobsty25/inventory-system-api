@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import Joi from 'joi'
 
 const createProductSchema = Joi.object({
   name: Joi.string().trim().required(),
@@ -6,8 +6,8 @@ const createProductSchema = Joi.object({
   category: Joi.string().trim().required(),
   unitPrice: Joi.number().required(),
   quantity: Joi.number().required(),
-  reorder: Joi.boolean(),
-});
+  reorder: Joi.boolean()
+})
 
 const editProductSchema = Joi.object({
   name: Joi.string().trim(),
@@ -15,7 +15,7 @@ const editProductSchema = Joi.object({
   category: Joi.string().trim(),
   unitPrice: Joi.number(),
   quantity: Joi.number(),
-  reorder: Joi.boolean(),
-});
+  reorder: Joi.boolean()
+})
 
-export { createProductSchema, editProductSchema };
+export { createProductSchema, editProductSchema }

@@ -1,54 +1,54 @@
-import { Response } from 'express';
-import { get, isNil, isEmpty } from 'lodash';
+import { type Response } from 'express'
+import { get, isNil, isEmpty } from 'lodash'
 
 export class ResponseObject<T> {
-  code?: string;
+  code?: string
 
-  message?: string;
+  message?: string
 
-  data?: T;
+  data?: T
 
-  meta?: any;
+  meta?: unknown
 }
 
-const defaultStatus = 400;
+const defaultStatus = 400
 
 export class ResponseService {
   static json<T>(
     res: Response,
     statusOrError: number | Error,
     message?: string,
-    data?: Record<string, any> | Array<Record<string, any>> | T,
-    meta?: any,
+    data?: Record<string, unknown> | Array<Record<string, unknown>> | T,
+    meta?: unknown,
     code?: string
   ): void {
-    const error = statusOrError instanceof Error ? statusOrError : null;
+    const error = statusOrError instanceof Error ? statusOrError : null
 
-    const response: ResponseObject<typeof data> = {};
-    response.message = message;
+    const response: ResponseObject<typeof data> = {}
+    response.message = message
 
-    let status = statusOrError;
+    let status = statusOrError
 
     if (error) {
-      const errorObj = statusOrError as Error;
-      response.message = message || errorObj.message;
-      status = get(errorObj, 'status', defaultStatus);
+      const errorObj = statusOrError as Error
+      response.message = message || errorObj.message
+      status = get(errorObj, 'status', defaultStatus)
     }
 
     if (!isNil(data)) {
-      response.data = data;
+      response.data = data
     }
 
     if (!isNil(meta)) {
-      response.meta = meta;
+      response.meta = meta
     }
 
     if (!isEmpty(code)) {
-      response.code = code;
+      response.code = code
     }
 
-    const statusCode = status as number;
+    const statusCode = status as number
 
-    res.status(statusCode).json(response);
+    res.status(statusCode).json(response)
   }
 }

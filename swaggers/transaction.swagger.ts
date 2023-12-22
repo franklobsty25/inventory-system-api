@@ -216,7 +216,7 @@
  *       description: Paginating items on a page
  *       schema:
  *         type: boolean
- * 
+ *
  *     DateQuery:
  *        name: date
  *        in: query

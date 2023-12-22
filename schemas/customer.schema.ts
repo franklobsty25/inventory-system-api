@@ -1,4 +1,4 @@
-import Joi from 'joi';
+import Joi from 'joi'
 
 const createCustomerSchema = Joi.object({
   firstname: Joi.string().min(3).max(30).trim().required(),
@@ -7,8 +7,8 @@ const createCustomerSchema = Joi.object({
   phoneNumber: Joi.string().trim().required(),
   email: Joi.string().email().trim().required(),
   address1: Joi.string().trim().required(),
-  address2: Joi.string().trim(),
-});
+  address2: Joi.string().trim()
+})
 
 const editCustomerSchema = Joi.object({
   firstname: Joi.string().min(3).max(30).trim(),
@@ -17,7 +17,7 @@ const editCustomerSchema = Joi.object({
   phoneNumber: Joi.string().trim(),
   email: Joi.string().email().trim(),
   address1: Joi.string().trim(),
-  address2: Joi.string().trim(),
-});
+  address2: Joi.string().trim()
+})
 
-export { createCustomerSchema, editCustomerSchema };
+export { createCustomerSchema, editCustomerSchema }

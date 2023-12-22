@@ -225,7 +225,7 @@
  *       description: Specify the order detail id
  *       schema:
  *         type: string
- * 
+ *
  *     OrderParam:
  *       name: order
  *       in: path
@@ -239,7 +239,7 @@
  *       description: Specify the product id
  *       schema:
  *         type: string
- * 
+ *
  *
  *
  *   responses:

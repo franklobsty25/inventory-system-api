@@ -26,9 +26,9 @@
  *                    type: string
  *        500:
  *          $ref: '#/components/responses/500Error'
- * 
+ *
  * #=================================================================
- * 
+ *
  *  /user/list:
  *    get:
  *      tags: [User]
@@ -67,10 +67,10 @@
  *          $ref: '#/components/responses/400Error'
  *        500:
  *          $ref: '#/components/responses/500Error'
- * 
- * 
+ *
+ *
  * #============================================================================
- * 
+ *
  *  /user/sign-up:
  *    post:
  *     tags: [User]
@@ -125,9 +125,9 @@
  *          $ref: '#/components/responses/400Error'
  *       500:
  *         $ref: '#/components/responses/500Error'
- * 
+ *
  * #========================================================================
- * 
+ *
  *  /user/login:
  *    post:
  *      tags: [User]
@@ -181,13 +181,13 @@
  *                     type: string
  *         500:
  *           $ref: '#/components/responses/500Error'
- * 
+ *
  * #================================================================================
- * 
+ *
  *  /user/change-password:
  *    put:
  *      tags: [User]
- *      summary: Change password 
+ *      summary: Change password
  *      description: Change user password
  *      security:
  *        - bearerAuth: []
@@ -226,9 +226,9 @@
  *           $ref: '#/components/responses/400Error'
  *         500:
  *           $ref: '#/components/responses/500Error'
- * 
+ *
  * #=============================================================================================
- * 
+ *
  *  /user/reset:
  *    put:
  *      tags: [User]
@@ -267,9 +267,9 @@
  *          $ref: '#/components/responses/400Error'
  *        500:
  *          $ref: '#/components/responses/500Error'
- * 
+ *
  * #===================================================================================================
- * 
+ *
  *  /user/edit:
  *    put:
  *      tags: [User]
@@ -316,9 +316,9 @@
  *          $ref: '#/components/responses/400Error'
  *        500:
  *          $ref: '#/components/responses/500Error'
- * 
+ *
  * #=========================================================================
- * 
+ *
  *  /user/{user}/change-role:
  *    put:
  *      tags: [User]
@@ -377,9 +377,9 @@
  *                    type: string
  *        500:
  *          $ref: '#components/responses/500Error'
- * 
+ *
  * #=========================================================================
- * 
+ *
  *  /user/delete:
  *    delete:
  *         tags: [User]
@@ -401,17 +401,17 @@
  *             $ref: '#/components/responses/400Error'
  *           500:
  *             $ref: '#/components/responses/500Error'
- * 
+ *
  * #============================================================================
- * 
- * 
+ *
+ *
  * components:
  *   securitySchemes:
  *    bearerAuth:
  *      type: http
  *      scheme: bearer
  *      bearerFormat: JWT
- * 
+ *
  *   schemas:
  *     User:
  *      type: object
@@ -439,7 +439,7 @@
  *        - lastname
  *        - email
  *        - password
- * 
+ *
  *   parameters:
  *     PerPage:
  *       name: page
@@ -447,29 +447,29 @@
  *       description: Per page number
  *       schema:
  *         type: integer
- * 
+ *
  *     PageLimit:
  *       name: limit
  *       in: query
  *       description: Limits the number of items on a page
  *       schema:
  *         type: integer
- * 
+ *
  *     Searches:
  *       name: search
  *       in: query
  *       description: Searching for items on a page
  *       schema:
  *         type: string
- * 
+ *
  *     Pagination:
  *       name: all
  *       in: query
  *       description: Paginating items on a page
  *       schema:
  *         type: boolean
- * 
- * 
+ *
+ *
  *   responses:
  *     400Error:
  *         description: Bad request
@@ -489,13 +489,13 @@
  *               properties:
  *                 message:
  *                   type: string
- * 
- * 
+ *
+ *
  *
  * security:
  *   - bearerAuth: []
- * 
- * 
- * 
- * 
+ *
+ *
+ *
+ *
  */

@@ -1,8 +1,8 @@
-import mongoose, { Document, PaginateModel } from 'mongoose';
-import { CUSTOMER } from '../constants/contants';
-import paginate from 'mongoose-paginate-v2';
+import mongoose, { type Document, type PaginateModel } from 'mongoose'
+import { CUSTOMER } from '../constants/contants'
+import paginate from 'mongoose-paginate-v2'
 
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema
 
 const CustomerSchema = new Schema(
   {
@@ -13,26 +13,26 @@ const CustomerSchema = new Schema(
     email: { type: String, required: true },
     address1: { type: String, required: true },
     address2: { type: String, required: false },
-    isDeleted: { type: Boolean, default: false },
+    isDeleted: { type: Boolean, default: false }
   },
   { timestamps: true }
-);
+)
 
-CustomerSchema.plugin(paginate);
+CustomerSchema.plugin(paginate)
 
 interface CustomerDocument extends Document {
-  firstname: string;
-  lastname: string;
-  middlename?: string;
-  phoneNumber: string;
-  email: string;
-  address1: string;
-  address2?: string;
+  firstname: string
+  lastname: string
+  middlename?: string
+  phoneNumber: string
+  email: string
+  address1: string
+  address2?: string
 }
 
 const PaginateCustomerModel = mongoose.model<
-  CustomerDocument,
-  PaginateModel<CustomerDocument>
->(CUSTOMER, CustomerSchema);
+CustomerDocument,
+PaginateModel<CustomerDocument>
+>(CUSTOMER, CustomerSchema)
 
-export { PaginateCustomerModel, CustomerDocument };
+export { PaginateCustomerModel, type CustomerDocument }

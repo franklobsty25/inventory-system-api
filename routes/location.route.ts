@@ -1,25 +1,25 @@
-import { Router } from 'express';
-import bodyParser from 'body-parser';
-import { authenticate } from '../utils/auth';
+import { Router } from 'express'
+import bodyParser from 'body-parser'
+import { authenticate } from '../utils/auth'
 import {
   createLocation,
   deleteLocation,
   editLocation,
   getLocation,
-  getLocations,
-} from '../controllers/location.controller';
+  getLocations
+} from '../controllers/location.controller'
 
-const router = Router();
-router.use(bodyParser.json());
+const router = Router()
+router.use(bodyParser.json())
 
-router.get('/list', authenticate, getLocations);
+router.get('/list', authenticate, getLocations)
 
-router.get('/:location', authenticate, getLocation);
+router.get('/:location', authenticate, getLocation)
 
-router.post('/create', authenticate, createLocation);
+router.post('/create', authenticate, createLocation)
 
-router.put('/:location/edit', authenticate, editLocation);
+router.put('/:location/edit', authenticate, editLocation)
 
-router.delete('/:location/delete', authenticate, deleteLocation);
+router.delete('/:location/delete', authenticate, deleteLocation)
 
-export default router;
+export default router

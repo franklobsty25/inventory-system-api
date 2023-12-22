@@ -1,14 +1,14 @@
-import Joi from 'joi';
+import Joi from 'joi'
 
 const createOrderSchema = Joi.object({
   amount: Joi.number().required(),
-  date: Joi.date(),
-});
+  date: Joi.date()
+})
 
 const editOrderSchema = Joi.object({
   amount: Joi.number(),
   status: Joi.string().trim(),
-  date: Joi.date(),
-});
+  date: Joi.date()
+})
 
-export { createOrderSchema, editOrderSchema };
+export { createOrderSchema, editOrderSchema }
