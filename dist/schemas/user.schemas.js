@@ -32,28 +32,28 @@ const signupSchema = Joi.object({
     phoneNumber: Joi.string().trim().required(),
     email: Joi.string().email().trim().required(),
     password: Joi.string().min(8).required(),
-    repeatPassword: Joi.string().min(8).required()
+    repeatPassword: Joi.string().min(8).required(),
 }).with('password', 'repeatPassword');
 exports.signupSchema = signupSchema;
 const loginSchema = Joi.object({
     email: Joi.string().email().trim().required(),
-    password: Joi.string().min(8).required()
+    password: Joi.string().min(8).required(),
 });
 exports.loginSchema = loginSchema;
 const changePasswordSchema = Joi.object({
     oldPassword: Joi.string().min(8).required(),
     newPassword: Joi.string().min(8).required(),
-    repeatPassword: Joi.string().min(8).required()
+    repeatPassword: Joi.string().min(8).required(),
 });
 exports.changePasswordSchema = changePasswordSchema;
 const forgotSchema = Joi.object({
-    email: Joi.string().email().trim().required()
+    email: Joi.string().email().trim().required(),
 });
 exports.forgotSchema = forgotSchema;
 const resetSchema = Joi.object({
     email: Joi.string().email().trim().required(),
     password: Joi.string().min(8).required(),
-    repeatPassword: Joi.string().min(8).required()
+    repeatPassword: Joi.string().min(8).required(),
 });
 exports.resetSchema = resetSchema;
 const editSchema = Joi.object({
@@ -62,10 +62,12 @@ const editSchema = Joi.object({
     phoneNumber: Joi.string().trim(),
     middlename: Joi.string().min(3).max(30).trim(),
     email: Joi.string().email(),
-    role: Joi.string()
 });
 exports.editSchema = editSchema;
 const setRoleSchema = Joi.object({
-    role: Joi.string().required()
+    role: Joi.string()
+        .lowercase()
+        .valid('user', 'admin', 'superadmin')
+        .required(),
 });
 exports.setRoleSchema = setRoleSchema;

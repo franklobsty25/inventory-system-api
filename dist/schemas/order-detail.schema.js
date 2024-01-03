@@ -8,12 +8,12 @@ const joi_1 = __importDefault(require("joi"));
 const createOrderDetailSchema = joi_1.default.object({
     description: joi_1.default.string().trim(),
     quantity: joi_1.default.number(),
-    unitPrice: joi_1.default.number().required()
+    unitPrice: joi_1.default.number().required(),
 });
 exports.createOrderDetailSchema = createOrderDetailSchema;
 const editOrderDetailSchema = joi_1.default.object({
     description: joi_1.default.string(),
     quantity: joi_1.default.number(),
-    unitPrice: joi_1.default.number()
+    unitPrice: joi_1.default.number(),
 });
 exports.editOrderDetailSchema = editOrderDetailSchema;

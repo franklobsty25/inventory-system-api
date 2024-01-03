@@ -433,6 +433,10 @@
  *          example: frankkodie@yahoo.com
  *        role:
  *          type: string
+ *          enum:
+ *            - user
+ *            - admin
+ *            - superadmin
  *          example: superadmin
  *      required:
  *        - firstname

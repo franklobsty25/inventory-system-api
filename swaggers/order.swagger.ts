@@ -199,6 +199,7 @@
  *          type: integer
  *        status:
  *          type: string
+ *          enum: [pending, processing, completed]
  *        date:
  *          type: date
  *        completedDate:

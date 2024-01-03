@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.SWAGGER_DOCS = exports.ORDER_DETAIL = exports.ORDER = exports.LOCATION = exports.TRANSACTION = exports.SUPPLIER = exports.PRODUCT = exports.CUSTOMER = exports.USER = exports.OrderStatusEnum = exports.RolesEnum = exports.LocationTypeEnum = exports.TransactionTypeEnum = void 0;
+exports.SWAGGER_DOCS = exports.ORDER_DETAIL = exports.ORDER = exports.LOCATION = exports.TRANSACTION = exports.SUPPLIER = exports.PRODUCT = exports.CUSTOMER = exports.USER = exports.CategoryEnum = exports.OrderStatusEnum = exports.RolesEnum = exports.LocationTypeEnum = exports.TransactionTypeEnum = void 0;
 var TransactionTypeEnum;
 (function (TransactionTypeEnum) {
     TransactionTypeEnum["RECEIPT"] = "receipt";
@@ -24,6 +24,14 @@ var OrderStatusEnum;
     OrderStatusEnum["PROCESSING"] = "processing";
     OrderStatusEnum["COMPLETED"] = "completed";
 })(OrderStatusEnum || (exports.OrderStatusEnum = OrderStatusEnum = {}));
+var CategoryEnum;
+(function (CategoryEnum) {
+    CategoryEnum["CAPSULE"] = "capsule";
+    CategoryEnum["COSMETIC"] = "cosmetic";
+    CategoryEnum["GROCERY"] = "grocery";
+    CategoryEnum["SYRUP"] = "syrup";
+    CategoryEnum["TABLET"] = "tablet";
+})(CategoryEnum || (exports.CategoryEnum = CategoryEnum = {}));
 const USER = 'User';
 exports.USER = USER;
 const CUSTOMER = 'Customer';

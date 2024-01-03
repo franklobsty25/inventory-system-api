@@ -178,6 +178,7 @@
  *      properties:
  *        type:
  *          type: string
+ *          enum: [receipt, shipment, adjustment]
  *        quantity:
  *          type: integer
  *        date:

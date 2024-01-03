@@ -38,12 +38,11 @@ const user_model_1 = require("../models/user.model");
 const user_schemas_1 = require("../schemas/user.schemas");
 const response_service_1 = require("../utils/response.service");
 const auth_1 = require("../utils/auth");
-const contants_1 = require("../constants/contants");
 const currentUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user } = req;
     const u = (yield user_model_1.PaginateUserModel.findOne({
         _id: user.id,
-        isDeleted: { $ne: true }
+        isDeleted: { $ne: true },
     }).select('firstname lastname middlename email role'));
     response_service_1.ResponseService.json(res, 200, 'User retrieved successfully.', u);
 });
@@ -51,14 +50,14 @@ exports.currentUser = currentUser;
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { page = 1, limit = 20, search, all } = req.query;
     const query = {
-        isDeleted: { $ne: true }
+        isDeleted: { $ne: true },
     };
     if (search) {
         query.$or = [
             { firstname: { $regex: search, $options: 'i' } },
             { lastname: { $regex: search, $options: 'i' } },
             { email: { $regex: search, $options: 'i' } },
-            { phoneNumber: { $regex: search, $options: 'i' } }
+            { phoneNumber: { $regex: search, $options: 'i' } },
         ];
     }
     const users = yield user_model_1.PaginateUserModel.paginate(query, {
@@ -66,7 +65,7 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         page: Number(page),
         limit: Number(limit),
         pagination: all === 'false',
-        select: '-password'
+        select: '-password',
     });
     response_service_1.ResponseService.json(res, 200, 'Users retrieved successfully.', users);
 });
@@ -75,14 +74,12 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { error, value } = user_schemas_1.signupSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
+            return response_service_1.ResponseService.json(res, error);
         }
         if (value) {
             const { password, repeatPassword } = value;
             if (password !== repeatPassword) {
-                response_service_1.ResponseService.json(res, 400, 'Password mismatch.');
-                return;
+                return response_service_1.ResponseService.json(res, 400, 'Password mismatch.');
             }
             value.password = yield argon2.hash(value.password);
             const user = new user_model_1.PaginateUserModel(value);
@@ -100,22 +97,19 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { error, value } = user_schemas_1.loginSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
+            return response_service_1.ResponseService.json(res, error);
         }
         const { email, password } = value;
         const user = (yield user_model_1.PaginateUserModel.findOne({
             email,
-            isDeleted: { $ne: true }
+            isDeleted: { $ne: true },
         }));
         if (!user) {
-            response_service_1.ResponseService.json(res, 400, `User with ${email} not found.`);
-            return;
+            return response_service_1.ResponseService.json(res, 400, `User with ${email} not found.`);
         }
         const isValid = yield argon2.verify(user.password, password);
         if (!isValid) {
-            response_service_1.ResponseService.json(res, 401, 'Password invalid.');
-            return;
+            return response_service_1.ResponseService.json(res, 401, 'Password invalid.');
         }
         const token = (0, auth_1.getToken)({ id: user.id, email: user.email });
         response_service_1.ResponseService.json(res, 200, 'User logged in successfully.', token);
@@ -130,24 +124,21 @@ const changePassword = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const { error, value } = user_schemas_1.changePasswordSchema.validate(req.body);
         const { user } = req;
         if (error)
-            response_service_1.ResponseService.json(res, error);
+            return response_service_1.ResponseService.json(res, error);
         const { oldPassword, newPassword, repeatPassword } = value;
         if (newPassword !== repeatPassword) {
-            response_service_1.ResponseService.json(res, 400, 'Password mismatch.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'Password mismatch.');
         }
         const userDoc = (yield user_model_1.PaginateUserModel.findOne({
             _id: user.id,
-            isDeleted: { $ne: true }
+            isDeleted: { $ne: true },
         }));
         if (!user) {
-            response_service_1.ResponseService.json(res, 400, 'User not found for password changes.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'User not found for password changes.');
         }
         const isValid = yield argon2.verify(userDoc.password, oldPassword);
         if (!isValid) {
-            response_service_1.ResponseService.json(res, 403, 'Old password mismatch');
-            return;
+            return response_service_1.ResponseService.json(res, 403, 'Old password mismatch');
         }
         userDoc.password = yield argon2.hash(newPassword);
         yield userDoc.save();
@@ -166,21 +157,18 @@ const reset = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { error, value } = user_schemas_1.resetSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
+            return response_service_1.ResponseService.json(res, error);
         }
         const { email, password, repeatPassword } = value;
         const user = (yield user_model_1.PaginateUserModel.findOne({
             email,
-            isDeleted: { $ne: true }
+            isDeleted: { $ne: true },
         }));
         if (!user) {
-            response_service_1.ResponseService.json(res, 400, 'User not found for password reset.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'User not found for password reset.');
         }
         if (password !== repeatPassword) {
-            response_service_1.ResponseService.json(res, 400, 'Password mismatch.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'Password mismatch.');
         }
         user.password = yield argon2.hash(password);
         yield user.save();
@@ -196,11 +184,10 @@ const editUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const { user } = req;
         const { error, value } = user_schemas_1.editSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
+            return response_service_1.ResponseService.json(res, error);
         }
         const updatedUser = yield user_model_1.PaginateUserModel.findOneAndUpdate({ _id: user.id, isDeleted: { $ne: true } }, value, {
-            new: true
+            new: true,
         }).select('-password');
         response_service_1.ResponseService.json(res, 200, 'User profile updated successfully.', updatedUser);
     }
@@ -220,20 +207,11 @@ const setOrChangeRole = (req, res) => __awaiter(void 0, void 0, void 0, function
         const userId = req.params.user;
         const { error, value } = user_schemas_1.setRoleSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
-        }
-        if (value.role) {
-            const isRole = Object.values(contants_1.RolesEnum).includes(value.role);
-            if (!isRole) {
-                response_service_1.ResponseService.json(res, 400, 'Invalid role.');
-                return;
-            }
+            return response_service_1.ResponseService.json(res, error);
         }
         const user = (yield user_model_1.PaginateUserModel.findOneAndUpdate({ _id: userId, isDeleted: { $ne: true } }, value, { new: true }).select('-password'));
         if (!user) {
-            response_service_1.ResponseService.json(res, 400, 'User not found.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'User not found.');
         }
         response_service_1.ResponseService.json(res, 200, 'User role updated successfully.', user);
     }

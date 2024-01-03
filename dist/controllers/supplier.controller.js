@@ -18,11 +18,10 @@ const getSupplier = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const supplierId = req.params.supplier;
         const supplier = (yield supplier_model_1.PaginateSupplierModel.findOne({
             _id: supplierId,
-            isDeleted: { $ne: true }
+            isDeleted: { $ne: true },
         }));
         if (!supplier) {
-            response_service_1.ResponseService.json(res, 400, 'Supplier not found.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'Supplier not found.');
         }
         response_service_1.ResponseService.json(res, 200, 'Supplier retrieved successfully.', supplier);
     }
@@ -35,21 +34,21 @@ const getSuppliers = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const { page = 1, limit = 20, all, search } = req.query;
         const query = {
-            isDeleted: { $ne: true }
+            isDeleted: { $ne: true },
         };
         if (search) {
             query.$or = [
                 { firstname: { $regex: search, $options: 'i' } },
                 { lastname: { $regex: search, $options: 'i' } },
                 { phoneNumber: { $regex: search, $options: 'i' } },
-                { email: { $regex: search, $options: 'i' } }
+                { email: { $regex: search, $options: 'i' } },
             ];
         }
         const suppliers = yield supplier_model_1.PaginateSupplierModel.paginate(query, {
             sort: '-1',
             page: Number(page),
             limit: Number(limit),
-            pagination: all === 'false'
+            pagination: all === 'false',
         });
         response_service_1.ResponseService.json(res, 200, 'Suppliers retrieved successfully.', suppliers);
     }
@@ -62,8 +61,7 @@ const createSupplier = (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const { error, value } = supplier_schema_1.createSupplierSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
+            return response_service_1.ResponseService.json(res, error);
         }
         const supplier = yield supplier_model_1.PaginateSupplierModel.create(value);
         response_service_1.ResponseService.json(res, 201, 'Supplier created successfully.', supplier);
@@ -78,13 +76,11 @@ const editSupplier = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         const supplierId = req.params.supplier;
         const { error, value } = supplier_schema_1.editSupplierSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
+            return response_service_1.ResponseService.json(res, error);
         }
         const updateSupplier = yield supplier_model_1.PaginateSupplierModel.findOneAndUpdate({ _id: supplierId, isDeleted: { $ne: true } }, value, { new: true });
         if (!updateSupplier) {
-            response_service_1.ResponseService.json(res, 400, 'Supplier not found to be updated.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'Supplier not found to be updated.');
         }
         response_service_1.ResponseService.json(res, 200, 'Supplier updated successfully.', updateSupplier);
     }
@@ -97,8 +93,7 @@ const deleteSupplier = (req, res) => __awaiter(void 0, void 0, void 0, function*
     const supplierId = req.params.supplier;
     const deletedSupplier = yield supplier_model_1.PaginateSupplierModel.findOneAndUpdate({ _id: supplierId, isDeleted: { $ne: true } }, { $set: { isDeleted: true } }, { new: true });
     if (!deletedSupplier) {
-        response_service_1.ResponseService.json(res, 400, 'Supplier not found to be deleted.');
-        return;
+        return response_service_1.ResponseService.json(res, 400, 'Supplier not found to be deleted.');
     }
     response_service_1.ResponseService.json(res, 200, 'Supplier deleted successfully.');
 });

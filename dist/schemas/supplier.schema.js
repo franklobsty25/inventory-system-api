@@ -12,7 +12,7 @@ const createSupplierSchema = joi_1.default.object({
     phoneNumber: joi_1.default.string().trim().required(),
     email: joi_1.default.string().email().trim(),
     address1: joi_1.default.string().required().trim(),
-    address2: joi_1.default.string().trim()
+    address2: joi_1.default.string().trim(),
 });
 exports.createSupplierSchema = createSupplierSchema;
 const editSupplierSchema = joi_1.default.object({
@@ -22,6 +22,6 @@ const editSupplierSchema = joi_1.default.object({
     phoneNumber: joi_1.default.string().trim(),
     email: joi_1.default.string().email().trim(),
     address1: joi_1.default.string().trim(),
-    address2: joi_1.default.string().trim()
+    address2: joi_1.default.string().trim(),
 });
 exports.editSupplierSchema = editSupplierSchema;

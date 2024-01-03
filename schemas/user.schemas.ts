@@ -1,4 +1,5 @@
-import * as Joi from 'joi'
+import * as Joi from 'joi';
+import { RolesEnum } from '../constants/contants';
 
 const signupSchema = Joi.object({
   firstname: Joi.string().min(3).max(30).trim().required(),
@@ -7,29 +8,29 @@ const signupSchema = Joi.object({
   phoneNumber: Joi.string().trim().required(),
   email: Joi.string().email().trim().required(),
   password: Joi.string().min(8).required(),
-  repeatPassword: Joi.string().min(8).required()
-}).with('password', 'repeatPassword')
+  repeatPassword: Joi.string().min(8).required(),
+}).with('password', 'repeatPassword');
 
 const loginSchema = Joi.object({
   email: Joi.string().email().trim().required(),
-  password: Joi.string().min(8).required()
-})
+  password: Joi.string().min(8).required(),
+});
 
 const changePasswordSchema = Joi.object({
   oldPassword: Joi.string().min(8).required(),
   newPassword: Joi.string().min(8).required(),
-  repeatPassword: Joi.string().min(8).required()
-})
+  repeatPassword: Joi.string().min(8).required(),
+});
 
 const forgotSchema = Joi.object({
-  email: Joi.string().email().trim().required()
-})
+  email: Joi.string().email().trim().required(),
+});
 
 const resetSchema = Joi.object({
   email: Joi.string().email().trim().required(),
   password: Joi.string().min(8).required(),
-  repeatPassword: Joi.string().min(8).required()
-})
+  repeatPassword: Joi.string().min(8).required(),
+});
 
 const editSchema = Joi.object({
   firstname: Joi.string().min(3).max(30).trim(),
@@ -37,12 +38,14 @@ const editSchema = Joi.object({
   phoneNumber: Joi.string().trim(),
   middlename: Joi.string().min(3).max(30).trim(),
   email: Joi.string().email(),
-  role: Joi.string()
-})
+});
 
 const setRoleSchema = Joi.object({
-  role: Joi.string().required()
-})
+  role: Joi.string()
+    .lowercase()
+    .valid('user', 'admin', 'superadmin')
+    .required(),
+});
 
 export {
   signupSchema,
@@ -51,5 +54,5 @@ export {
   forgotSchema,
   resetSchema,
   editSchema,
-  setRoleSchema
-}
+  setRoleSchema,
+};

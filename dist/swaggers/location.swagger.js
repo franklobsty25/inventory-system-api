@@ -180,6 +180,7 @@
  *          type: string
  *        type:
  *          type: string
+ *          enum: [warehouse, shelves]
  *      required:
  *        - name
  *      example:

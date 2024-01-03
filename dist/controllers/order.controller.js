@@ -23,11 +23,10 @@ const getOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const orderId = req.params.order;
         const order = (yield order_model_1.PaginateOrderModel.findOne({
             _id: orderId,
-            isDeleted: { $ne: true }
+            isDeleted: { $ne: true },
         }));
         if (!order) {
-            response_service_1.ResponseService.json(res, 400, 'Order not found.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'Order not found.');
         }
         response_service_1.ResponseService.json(res, 200, 'Order retrieved successfully.', order);
     }
@@ -40,7 +39,7 @@ const getOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { page = 1, limit = 20, all, search, date } = req.query;
         const query = {
-            isDeleted: { $ne: true }
+            isDeleted: { $ne: true },
         };
         if (search)
             query.$or = [{ status: { $regex: search, $options: 'i' } }];
@@ -49,14 +48,14 @@ const getOrders = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         if (date) {
             query.$or = [
                 { date: { $gte: (0, dayjs_1.default)(search).toDate() } },
-                { completedDate: { $gte: (0, dayjs_1.default)(search).toDate() } }
+                { completedDate: { $gte: (0, dayjs_1.default)(search).toDate() } },
             ];
         }
         const orders = yield order_model_1.PaginateOrderModel.paginate(query, {
             sort: '-1',
             page: Number(page),
             limit: Number(limit),
-            pagination: all === 'false'
+            pagination: all === 'false',
         });
         response_service_1.ResponseService.json(res, 200, 'Orders retrieved successfully', orders);
     }
@@ -70,8 +69,7 @@ const createOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const customer = req.params.customer;
         const { error, value } = order_schema_1.createOrderSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
+            return response_service_1.ResponseService.json(res, error);
         }
         value.customer = customer;
         const order = yield order_model_1.PaginateOrderModel.create(value);
@@ -87,19 +85,17 @@ const editOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         const orderId = req.params.order;
         const { error, value } = order_schema_1.editOrderSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
+            return response_service_1.ResponseService.json(res, error);
         }
         if (value.status) {
             const isValid = Object.values(contants_1.OrderStatusEnum).includes(value.status);
             if (!isValid) {
-                response_service_1.ResponseService.json(res, 400, 'Invalid order status.');
-                return;
+                return response_service_1.ResponseService.json(res, 400, 'Invalid order status.');
             }
         }
         const updatedOrder = (yield order_model_1.PaginateOrderModel.findOneAndUpdate({ _id: orderId, isDeleted: { $ne: true } }, { $set: Object.assign(Object.assign({}, value), { completedDate: new Date() }) }, { new: true }));
         if (!updatedOrder) {
-            response_service_1.ResponseService.json(res, 400, 'Order not found to be updated.');
+            return response_service_1.ResponseService.json(res, 400, 'Order not found to be updated.');
         }
         response_service_1.ResponseService.json(res, 200, 'Order updated successfully.', updatedOrder);
     }
@@ -112,8 +108,7 @@ const deleteOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
     const orderId = req.params.order;
     const deletedOrder = (yield order_model_1.PaginateOrderModel.findOneAndUpdate({ _id: orderId, isDeleted: { $ne: true } }, { $set: { isDeleted: true } }, { new: true }));
     if (!deletedOrder) {
-        response_service_1.ResponseService.json(res, 400, 'Order not found to be deleted.');
-        return;
+        return response_service_1.ResponseService.json(res, 400, 'Order not found to be deleted.');
     }
     response_service_1.ResponseService.json(res, 200, 'Order deleted successfully.');
 });

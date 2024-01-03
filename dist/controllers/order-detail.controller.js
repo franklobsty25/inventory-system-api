@@ -18,11 +18,10 @@ const getOrderDetail = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const detailId = req.params.detail;
         const orderDetail = (yield order_detail_model_1.PaginateOrderDetailModel.findOne({
             _id: detailId,
-            isDeleted: { $ne: true }
+            isDeleted: { $ne: true },
         }));
         if (!orderDetail) {
-            response_service_1.ResponseService.json(res, 400, 'Order detail not found.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'Order detail not found.');
         }
         response_service_1.ResponseService.json(res, 200, 'Order detail retrieved successfully.', orderDetail);
     }
@@ -35,7 +34,7 @@ const getOrderDetails = (req, res) => __awaiter(void 0, void 0, void 0, function
     try {
         const { page = 1, limit = 20, all, search } = req.query;
         const query = {
-            isDeleted: { $ne: true }
+            isDeleted: { $ne: true },
         };
         if (search) {
             query.$or = [{ description: { $regex: search, $options: 'i' } }];
@@ -47,7 +46,7 @@ const getOrderDetails = (req, res) => __awaiter(void 0, void 0, void 0, function
             sort: '-1',
             page: Number(page),
             limit: Number(limit),
-            pagaination: all === 'false'
+            pagaination: all === 'false',
         });
         response_service_1.ResponseService.json(res, 200, 'Order details retrieved successfully.', orderDetails);
     }
@@ -61,8 +60,7 @@ const createOrderDetail = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const { order, product } = req.params;
         const { error, value } = order_detail_schema_1.createOrderDetailSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
+            return response_service_1.ResponseService.json(res, error);
         }
         value.order = order;
         value.product = product;
@@ -79,13 +77,11 @@ const editOrderDetail = (req, res) => __awaiter(void 0, void 0, void 0, function
         const detailId = req.params.detail;
         const { error, value } = order_detail_schema_1.editOrderDetailSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
+            return response_service_1.ResponseService.json(res, error);
         }
         const updatedOrderDetail = (yield order_detail_model_1.PaginateOrderDetailModel.findOneAndUpdate({ _id: detailId, isDeleted: { $ne: true } }, value, { new: true }));
         if (!updatedOrderDetail) {
-            response_service_1.ResponseService.json(res, 400, 'Order detail not found to be updated.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'Order detail not found to be updated.');
         }
         response_service_1.ResponseService.json(res, 200, 'Order detail updated successfully.', updatedOrderDetail);
     }
@@ -98,8 +94,7 @@ const deleteOrderDetail = (req, res) => __awaiter(void 0, void 0, void 0, functi
     const detailId = req.params.detail;
     const deletedOrderDetail = (yield order_detail_model_1.PaginateOrderDetailModel.findOneAndUpdate({ _id: detailId, isDeleted: { $ne: true } }, { $set: { isDeleted: true } }, { new: true }));
     if (!deletedOrderDetail) {
-        response_service_1.ResponseService.json(res, 400, 'Order detail not found to be deleted.');
-        return;
+        return response_service_1.ResponseService.json(res, 400, 'Order detail not found to be deleted.');
     }
     response_service_1.ResponseService.json(res, 200, 'Order detail deleted successfully.');
 });

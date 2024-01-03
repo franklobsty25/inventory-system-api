@@ -182,6 +182,7 @@
  *          type: string
  *        category:
  *          type: string
+ *          enum: [capsule, cosmetic, grocery, syrup, tablet]
  *        unitPrice:
  *          type: number
  *        quantity:

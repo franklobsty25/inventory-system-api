@@ -21,6 +21,14 @@ enum OrderStatusEnum {
   COMPLETED = 'completed',
 }
 
+enum CategoryEnum {
+  CAPSULE = 'capsule',
+  COSMETIC = 'cosmetic',
+  GROCERY = 'grocery',
+  SYRUP = 'syrup',
+  TABLET = 'tablet',
+}
+
 const USER = 'User'
 const CUSTOMER = 'Customer'
 const PRODUCT = 'Product'
@@ -80,6 +88,7 @@ export {
   LocationTypeEnum,
   RolesEnum,
   OrderStatusEnum,
+  CategoryEnum,
   USER,
   CUSTOMER,
   PRODUCT,

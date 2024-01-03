@@ -8,12 +8,12 @@ const joi_1 = __importDefault(require("joi"));
 const createLocationSchema = joi_1.default.object({
     name: joi_1.default.string().trim().required(),
     description: joi_1.default.string().trim(),
-    type: joi_1.default.string().trim()
+    type: joi_1.default.string().lowercase().valid('warehouse', 'shelves'),
 });
 exports.createLocationSchema = createLocationSchema;
 const editLocationSchema = joi_1.default.object({
     name: joi_1.default.string().trim(),
     description: joi_1.default.string().trim(),
-    type: joi_1.default.string().trim()
+    type: joi_1.default.string().lowercase().valid('warehouse', 'shelves'),
 });
 exports.editLocationSchema = editLocationSchema;

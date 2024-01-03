@@ -1,5 +1,5 @@
 import mongoose, { type Document, type PaginateModel, SchemaTypes } from 'mongoose'
-import { PRODUCT, SUPPLIER } from '../constants/contants'
+import { CategoryEnum, PRODUCT, SUPPLIER } from '../constants/contants'
 import paginate from 'mongoose-paginate-v2'
 
 const Schema = mongoose.Schema
@@ -23,7 +23,7 @@ ProductSchema.plugin(paginate)
 interface ProductDocument extends Document {
   name: string
   description: string
-  category: string
+  category: CategoryEnum,
   unitPrice: number
   quantity: number
   reorder: boolean

@@ -12,7 +12,7 @@ const createCustomerSchema = joi_1.default.object({
     phoneNumber: joi_1.default.string().trim().required(),
     email: joi_1.default.string().email().trim().required(),
     address1: joi_1.default.string().trim().required(),
-    address2: joi_1.default.string().trim()
+    address2: joi_1.default.string().trim(),
 });
 exports.createCustomerSchema = createCustomerSchema;
 const editCustomerSchema = joi_1.default.object({
@@ -22,6 +22,6 @@ const editCustomerSchema = joi_1.default.object({
     phoneNumber: joi_1.default.string().trim(),
     email: joi_1.default.string().email().trim(),
     address1: joi_1.default.string().trim(),
-    address2: joi_1.default.string().trim()
+    address2: joi_1.default.string().trim(),
 });
 exports.editCustomerSchema = editCustomerSchema;

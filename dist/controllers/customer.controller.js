@@ -18,11 +18,10 @@ const getCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         const customerId = req.params.customer;
         const customer = yield customer_model_1.PaginateCustomerModel.findOne({
             _id: customerId,
-            isDeleted: { $ne: true }
+            isDeleted: { $ne: true },
         });
         if (!customer) {
-            response_service_1.ResponseService.json(res, 400, 'Customer not found.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'Customer not found.');
         }
         response_service_1.ResponseService.json(res, 200, 'Customer retrieved successfully', customer);
     }
@@ -35,20 +34,20 @@ const getCustomers = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const { page = 1, limit = 20, all, search } = req.query;
         const query = {
-            isDeleted: { $ne: true }
+            isDeleted: { $ne: true },
         };
         if (search) {
             query.$or = [
                 { firstname: { $regex: search, $options: 'i' } },
                 { lastname: { $regex: search, $options: 'i' } },
-                { email: { $regex: search, $options: 'i' } }
+                { email: { $regex: search, $options: 'i' } },
             ];
         }
         const customers = yield customer_model_1.PaginateCustomerModel.paginate(query, {
             sort: '-1',
             page: Number(page),
             limit: Number(limit),
-            pagination: all === 'false'
+            pagination: all === 'false',
         });
         response_service_1.ResponseService.json(res, 200, 'Customers retrieved successfully.', customers);
     }
@@ -61,8 +60,7 @@ const createCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function*
     try {
         const { error, value } = customer_schema_1.createCustomerSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
+            return response_service_1.ResponseService.json(res, error);
         }
         const customer = yield customer_model_1.PaginateCustomerModel.create(value);
         response_service_1.ResponseService.json(res, 201, 'Customer created successfully.', customer);
@@ -76,14 +74,12 @@ const editCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     try {
         const { error, value } = customer_schema_1.editCustomerSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
+            return response_service_1.ResponseService.json(res, error);
         }
         const customer = req.params.customer;
         const updatedcustomer = yield customer_model_1.PaginateCustomerModel.findOneAndUpdate({ _id: customer, isDeleted: { $ne: true } }, value, { new: true });
         if (!updatedcustomer) {
-            response_service_1.ResponseService.json(res, 400, 'Customer not found to be updated.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'Customer not found to be updated.');
         }
         response_service_1.ResponseService.json(res, 200, 'Customer updated successfully.', updatedcustomer);
     }
@@ -97,8 +93,7 @@ const deleteCustomer = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const customer = req.params.customer;
         const deletedCustomer = yield customer_model_1.PaginateCustomerModel.findOneAndUpdate({ _id: customer, isDeleted: { $ne: true } }, { $set: { isDeleted: true } }, { new: true });
         if (!deletedCustomer) {
-            response_service_1.ResponseService.json(res, 400, 'Customer not found to be deleted.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'Customer not found to be deleted.');
         }
         response_service_1.ResponseService.json(res, 200, 'Customer deleted successfully.');
     }

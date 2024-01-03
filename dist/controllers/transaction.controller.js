@@ -17,17 +17,15 @@ const transaction_model_1 = require("../models/transaction.model");
 const response_service_1 = require("../utils/response.service");
 const dayjs_1 = __importDefault(require("dayjs"));
 const transaction_schema_1 = require("../schemas/transaction.schema");
-const contants_1 = require("../constants/contants");
 const getTransaction = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const transactionId = req.params.transaction;
         const transaction = (yield transaction_model_1.PaginateTransactionModel.findOne({
             _id: transactionId,
-            isDeleted: { $ne: true }
+            isDeleted: { $ne: true },
         }));
         if (!transaction) {
-            response_service_1.ResponseService.json(res, 400, 'Transaction information not found.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'Transaction information not found.');
         }
         response_service_1.ResponseService.json(res, 200, 'Transaction information retrieved successfully.', transaction);
     }
@@ -40,7 +38,7 @@ const getTransactions = (req, res) => __awaiter(void 0, void 0, void 0, function
     try {
         const { page = 1, limit = 20, all, search, date } = req.query;
         const query = {
-            isDeleted: { $ne: true }
+            isDeleted: { $ne: true },
         };
         if (search)
             query.$or = [{ type: { $regex: search, $options: 'i' } }];
@@ -49,14 +47,14 @@ const getTransactions = (req, res) => __awaiter(void 0, void 0, void 0, function
         if (date) {
             query.$or = [
                 { date: { $gte: (0, dayjs_1.default)(search).toDate() } },
-                { createdAt: { $gte: (0, dayjs_1.default)(search).toDate() } }
+                { createdAt: { $gte: (0, dayjs_1.default)(search).toDate() } },
             ];
         }
         const transactions = yield transaction_model_1.PaginateTransactionModel.paginate(query, {
             sort: '-1',
             page: Number(page),
             limit: Number(limit),
-            pagination: all === 'false'
+            pagination: all === 'false',
         });
         response_service_1.ResponseService.json(res, 200, 'Transactions retrieved successfully.', transactions);
     }
@@ -70,15 +68,7 @@ const createTransaction = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const product = req.params.product;
         const { error, value } = transaction_schema_1.createTransactionSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
-        }
-        if (value.type) {
-            const isValid = Object.values(contants_1.TransactionTypeEnum).includes(value.type);
-            if (!isValid) {
-                response_service_1.ResponseService.json(res, 400, 'Invalid transaction type.');
-                return;
-            }
+            return response_service_1.ResponseService.json(res, error);
         }
         value.product = product;
         const transaction = yield transaction_model_1.PaginateTransactionModel.create(value);
@@ -94,20 +84,11 @@ const editTransaction = (req, res) => __awaiter(void 0, void 0, void 0, function
         const transaction = req.params.transaction;
         const { error, value } = transaction_schema_1.editTransactionSchema.validate(req.body);
         if (error) {
-            response_service_1.ResponseService.json(res, error);
-            return;
-        }
-        if (value.type) {
-            const isValid = Object.values(contants_1.TransactionTypeEnum).includes(value.type);
-            if (!isValid) {
-                response_service_1.ResponseService.json(res, 400, 'Invalid transaction type.');
-                return;
-            }
+            return response_service_1.ResponseService.json(res, error);
         }
         const updatedTransaction = (yield transaction_model_1.PaginateTransactionModel.findOneAndUpdate({ _id: transaction, isDeleted: { $ne: true } }, value, { new: true }));
         if (!updatedTransaction) {
-            response_service_1.ResponseService.json(res, 400, 'Transaction information not found.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'Transaction information not found.');
         }
         response_service_1.ResponseService.json(res, 200, 'Transaction updated successfully.', updatedTransaction);
     }
@@ -121,8 +102,7 @@ const deleteTransaction = (req, res) => __awaiter(void 0, void 0, void 0, functi
         const transaction = req.params.transaction;
         const deletedTransaction = (yield transaction_model_1.PaginateTransactionModel.findOneAndUpdate({ _id: transaction, isDeleted: { $ne: true } }, { $set: { isDeleted: true } }, { new: true }));
         if (!deletedTransaction) {
-            response_service_1.ResponseService.json(res, 400, 'Transaction to be deleted not found.');
-            return;
+            return response_service_1.ResponseService.json(res, 400, 'Transaction to be deleted not found.');
         }
         response_service_1.ResponseService.json(res, 200, 'Transaction deleted successfully.');
     }
