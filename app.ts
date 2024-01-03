@@ -21,10 +21,12 @@ const swaggerJsdoc = require('swagger-jsdoc')
 dotenv.config()
 
 const app: Express = express()
+app.set('trust proxy', 1)
+
 const port: number = Number(process.env.PORT) || 3000
 const limiter = rateLimit({
   windowMs: 20 * 60 * 1000,
-  max: 10,
+  max: 100,
   standardHeaders: true,
   legacyHeaders: false,
 });

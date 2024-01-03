@@ -51,19 +51,19 @@ const SWAGGER_DOCS = {
             contact: {
                 name: 'Colonkoed Enterprise',
                 url: 'https://colonkoded.com/',
-                email: 'info@colonkoded.com'
-            }
+                email: 'info@colonkoded.com',
+            },
         },
         servers: [
             {
                 url: 'http://localhost:8000/api/v1',
-                description: 'Local Server'
+                description: 'Local Server',
             },
             {
-                url: 'https://c199-102-176-94-188.ngrok-free.app/api/v1',
-                description: 'Ngrok Service'
-            }
-        ]
+                url: 'https://02c9-102-176-94-131.ngrok-free.app/api/v1',
+                description: 'Ngrok Service',
+            },
+        ],
     },
     basePath: '/',
     securityDefinitions: {
@@ -73,14 +73,14 @@ const SWAGGER_DOCS = {
             in: 'header',
             description: 'Authorization token',
             scheme: 'bearer',
-            bearerFormat: 'JWT'
-        }
+            bearerFormat: 'JWT',
+        },
     },
     apis: [
         './swaggers/*.js',
         './swaggers/api/v1/*.js',
         './swaggers/*.ts',
-        './swaggers/api/v1/*.ts'
-    ]
+        './swaggers/api/v1/*.ts',
+    ],
 };
 exports.SWAGGER_DOCS = SWAGGER_DOCS;

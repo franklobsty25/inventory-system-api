@@ -41,15 +41,24 @@ const location_route_1 = __importDefault(require("./routes/location.route"));
 const transaction_route_1 = __importDefault(require("./routes/transaction.route"));
 const contants_1 = require("./constants/contants");
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
+const express_rate_limit_1 = require("express-rate-limit");
 const swaggerJsdoc = require('swagger-jsdoc');
 dotenv_1.default.config();
 const app = (0, express_1.default)();
+app.set('trust proxy', 1);
 const port = Number(process.env.PORT) || 3000;
+const limiter = (0, express_rate_limit_1.rateLimit)({
+    windowMs: 20 * 60 * 1000,
+    max: 100,
+    standardHeaders: true,
+    legacyHeaders: false,
+});
 app.use((0, cors_1.default)());
 app.use((0, helmet_1.default)());
 app.use(express_1.default.json());
 app.use((0, express_1.urlencoded)({ extended: true }));
 app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swaggerJsdoc(contants_1.SWAGGER_DOCS), { explorer: true }));
+app.use(limiter);
 app.use('/api/v1/user', user_route_1.default);
 app.use('/api/v1/customer', customer_route_1.default);
 app.use('/api/v1/supplier', supplier_route_1.default);
