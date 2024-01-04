@@ -109,6 +109,10 @@
  *                 repeatPassword:
  *                   type: string
  *                   example: Frank25.!
+ *                 role:
+ *                   type: string
+ *                   enum: [user, admin, superadmin]
+ *                   example: superadmin
  *     responses:
  *       201:
  *         description: User created successfully
@@ -431,6 +435,9 @@
  *        email:
  *          type: string
  *          example: frankkodie@yahoo.com
+ *        password:
+ *          type: string
+ *          example: Frank25@.!
  *        role:
  *          type: string
  *          enum:

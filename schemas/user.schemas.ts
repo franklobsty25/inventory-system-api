@@ -9,6 +9,7 @@ const signupSchema = Joi.object({
   email: Joi.string().email().trim().required(),
   password: Joi.string().min(8).required(),
   repeatPassword: Joi.string().min(8).required(),
+  role: Joi.string().lowercase().valid('user', 'admin', 'superadmin'),
 }).with('password', 'repeatPassword');
 
 const loginSchema = Joi.object({
