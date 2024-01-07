@@ -71,7 +71,7 @@ const signup = async (req: Request, res: Response) => {
 
       await user.save();
 
-      ResponseService.json(res, 201, 'User created successfully.', token);
+      ResponseService.json(res, 201, 'User created successfully.', { token });
     }
   } catch (error) {
     ResponseService.json(res, error as Error);
@@ -104,7 +104,7 @@ const login = async (req: Request, res: Response) => {
 
     const token = getToken({ id: user.id, email: user.email });
 
-    ResponseService.json(res, 200, 'User logged in successfully.', token);
+    ResponseService.json(res, 200, 'User logged in successfully.', { token });
   } catch (error) {
     ResponseService.json(res, error as Error);
   }

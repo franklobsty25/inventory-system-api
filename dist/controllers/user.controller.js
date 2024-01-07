@@ -85,7 +85,7 @@ const signup = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             const user = new user_model_1.PaginateUserModel(value);
             const token = (0, auth_1.getToken)({ id: user.id, email: user.email });
             yield user.save();
-            response_service_1.ResponseService.json(res, 201, 'User created successfully.', token);
+            response_service_1.ResponseService.json(res, 201, 'User created successfully.', { token });
         }
     }
     catch (error) {
@@ -112,7 +112,7 @@ const login = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
             return response_service_1.ResponseService.json(res, 401, 'Password invalid.');
         }
         const token = (0, auth_1.getToken)({ id: user.id, email: user.email });
-        response_service_1.ResponseService.json(res, 200, 'User logged in successfully.', token);
+        response_service_1.ResponseService.json(res, 200, 'User logged in successfully.', { token });
     }
     catch (error) {
         response_service_1.ResponseService.json(res, error);
