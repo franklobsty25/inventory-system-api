@@ -125,6 +125,9 @@
  *                   type: string
  *                 data:
  *                   type: object
+ *                   properties:
+ *                     token:
+ *                      type: string
  *       400:
  *          $ref: '#/components/responses/400Error'
  *       500:
@@ -165,6 +168,9 @@
  *                     type: string
  *                   data:
  *                     type: string
+ *                     properties:
+ *                       token:
+ *                        type: string
  *         400:
  *           description: User not found
  *           content:
