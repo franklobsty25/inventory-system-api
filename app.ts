@@ -65,3 +65,5 @@ app.listen(port, () => {
       console.error(`[error]: Error connecting to database: ${error.message}`)
     })
 })
+
+export = app;

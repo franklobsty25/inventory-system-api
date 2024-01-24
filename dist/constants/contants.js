@@ -68,7 +68,7 @@ const SWAGGER_DOCS = {
                 description: 'Local Server',
             },
             {
-                url: 'https://51fd-102-176-94-137.ngrok-free.app/api/v1',
+                url: 'https://842b-41-204-44-206.ngrok-free.app/api/v1',
                 description: 'Ngrok Service',
             },
         ],
